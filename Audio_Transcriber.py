@@ -7,12 +7,38 @@
 
 
 
-## =================  IMPORT STATEMENTS  =================
-print(' Initializig... ')
+
 
 import os
 import csv
 import sys
+import argparse 
+
+parser = argparse.ArgumentParser(description='Audio transcriber')
+
+parser.add_argument('--gui', type=str, nargs='?', default = 'on',
+                   help='Gui needs to be on or off')
+
+parser.add_argument('--folders', type=str, nargs='*', default = [],
+                   help='Data folders to transcribe')
+
+args = parser.parse_args()
+if args.gui:
+	gui_mode = args.gui
+else:
+	gui_mode = 'on'
+
+
+if gui_mode == 'off':
+	try: 
+		Data_folders = args.folders
+	except:
+		print ('You must provide folders if --gui is off. Use -h for more information')
+		quit()
+
+print( 'Data Folders set : ' + ' '.join(str(e) for e in Data_folders))
+
+## =================  IMPORT STATEMENTS  =================
 
 try:
     from google.cloud import storage
@@ -26,26 +52,38 @@ from google.cloud.speech import enums
 from google.cloud.speech import types 
 
 
-# Gui imports 
-from tkinter import Tk
-from tkinter import messagebox
-from tkinter import filedialog
-
-root = Tk()
-root.withdraw() # we don't want a full GUI, so keep the root window from appearing
-root.update()
 
 
 
+
+print(' Initializing... ')
+
+
+if gui_mode == 'on':
+	# Gui imports 
+	from tkinter import Tk
+	from tkinter import messagebox
+	from tkinter import filedialog
+
+	root = Tk()
+	root.withdraw() # we don't want a full GUI, so keep the root window from appearing
+	root.update()
+
+
+	
 
 ## =================  GOOGLE CREDENTIAL =================
-change_credential = messagebox.askyesno("Audio_Transcriber","Would you like to change the default Google Credential?")
-if change_credential:
-	filename = askopenfilename(title = 'Please Select your credential File') # show an "Open" dialog box and return the path to the selected file
-	os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = filename
-else: 
-	os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '../../Credentials/ryan_1801_eye_movement.json'
 
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '../../Credentials/ryan_1801_eye_movement.json'
+
+if gui_mode == 'on':
+	change_credential = messagebox.askyesno("Audio_Transcriber","Would you like to change the default Google Credential?")
+	if change_credential:
+		filename = askopenfilename(title = 'Please Select your credential File') # show an "Open" dialog box and return the path to the selected file
+		os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = filename
+
+
+# ====  Setting up the storage  ====		
 try: 
 	storage_client = storage.Client()
 	print('Google account access: Success')
@@ -59,7 +97,7 @@ try:
 	bucket = storage_client.get_bucket(bucket_name)
 	print('Bucket account access: Success')
 except:
-	print("Bukcet access error")
+	print("Bucket access error")
 
 # ====  Setting up the speech recognizer  ====  
 try: 
@@ -83,17 +121,16 @@ config = types.RecognitionConfig(
 
  
 ## =================  INPUT FOLDERS  =================
-title = 'Please select your input folder or cancel if finished'
-Data_folders = []
-while True:
-	dir = filedialog.askdirectory(title=title)
-	if not dir:	
-		break
-	Data_folders.append(dir)
-	title = 'got %s. Next dir' % dir
+if gui_mode == 'on':
+	title = 'Please select your input folder or cancel if finished'
+	while True:
+		dir = filedialog.askdirectory(title=title)
+		if not dir:	
+			break
+		Data_folders.append(dir)
+		title = 'got %s. Next dir' % dir
 
-root.update()
-
+	root.update()
 
 ## =================  CREATING OUTPUTS  =================
 for Data_folder in Data_folders:
@@ -126,7 +163,7 @@ for Data_folder in Data_folders:
 			print('Waiting for operation to complete...')
 			try:
 				result = operation.result(timeout = 300)
-				print(filename_base + ': Succesful')
+				print(filename_base + ': Successful')
 
 				with open(Output_folder + 'full_Information/' + filename_base + '_detailed_transcript.txt', 'w') as detailed_output_file:
 					for myresult in result.results:
@@ -144,14 +181,14 @@ for Data_folder in Data_folders:
 								end_time.seconds + end_time.nanos * 1e-9))
 
 
-				print( 'Succesfully created: ' + detailed_output_file.name)
+				print( 'Successfully created: ' + detailed_output_file.name)
 
 				with open(Output_folder + 'Transcript/' + filename_base + '_transcript.txt','w') as output_file:
 					for myresult in result.results:
 						alternative = myresult.alternatives[0]
 						output_file.write(format(alternative.transcript))
 
-				print( 'Succesfully created: ' + output_file.name)
+				print( 'Successfully created: ' + output_file.name)
 
 
 				with open(Output_folder + 'Timetable/' + filename_base + '_timetable.csv', 'w') as csv_file:
@@ -164,13 +201,17 @@ for Data_folder in Data_folders:
 							end_time = word_info.end_time.seconds + word_info.end_time.nanos * 1e-9
 							output = [word,start_time,end_time,end_time - start_time]
 							csvwriter.writerow(output)
-					print('Succesfully created: ' + csv_file.name)
+					print('Successfully created: ' + csv_file.name)
 
 			except:
 				print(trial + 'skipped')
 				continue
 
-blob.delete()
+try:
+   blob.delete()
+except NameError:
+	print ('No audio_files were transcribed')
+
 sys.stdout = old_stdout
 log_file.close()
 
