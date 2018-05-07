@@ -32,24 +32,25 @@ else:
 if gui_mode == 'off':
 	try: 
 		Data_folders = args.folders
+		print( 'Data Folders set : ' + ' '.join(str(e) for e in Data_folders))
+
 	except:
 		print ('You must provide folders if --gui is off. Use -h for more information')
 		quit()
 
-print( 'Data Folders set : ' + ' '.join(str(e) for e in Data_folders))
 
 ## =================  IMPORT STATEMENTS  =================
 
 try:
     from google.cloud import storage
-    from google.cloud import speech
+    from google.cloud import speech_v1p1beta1
 
 except ImportError:
     print('You need to install google.cloud.storage and google.cloud.speech in order to use this application')
     quit()
 
-from google.cloud.speech import enums
-from google.cloud.speech import types 
+from google.cloud.speech_v1p1beta1 import enums
+from google.cloud.speech_v1p1beta1 import types 
 
 
 
@@ -101,7 +102,7 @@ except:
 
 # ====  Setting up the speech recognizer  ====  
 try: 
-	speech_client = speech.SpeechClient()
+	speech_client = speech_v1p1beta1.SpeechClient()
 	print('Speech account access: Success')
 except:
 	print ("Speech_recognition access error")
@@ -115,13 +116,14 @@ config = types.RecognitionConfig(
     encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
     sample_rate_hertz=24000,
     language_code='en-US',	
-    enable_word_time_offsets=True)
-    #enable_automatic_punctuation= True)
+    enable_word_time_offsets=True,
+    enable_automatic_punctuation= True)
 
 
  
 ## =================  INPUT FOLDERS  =================
 if gui_mode == 'on':
+	Data_folders = []
 	title = 'Please select your input folder or cancel if finished'
 	while True:
 		dir = filedialog.askdirectory(title=title)
