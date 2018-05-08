@@ -43,14 +43,14 @@ if gui_mode == 'off':
 
 try:
     from google.cloud import storage
-    from google.cloud import speech_v1p1beta1
+    from google.cloud import speech
 
 except ImportError:
     print('You need to install google.cloud.storage and google.cloud.speech in order to use this application')
     quit()
 
-from google.cloud.speech_v1p1beta1 import enums
-from google.cloud.speech_v1p1beta1 import types 
+from google.cloud.speech import enums
+from google.cloud.speech import types 
 
 
 
@@ -102,7 +102,7 @@ except:
 
 # ====  Setting up the speech recognizer  ====  
 try: 
-	speech_client = speech_v1p1beta1.SpeechClient()
+	speech_client = speech.SpeechClient()
 	print('Speech account access: Success')
 except:
 	print ("Speech_recognition access error")
@@ -116,8 +116,7 @@ config = types.RecognitionConfig(
     encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
     sample_rate_hertz=24000,
     language_code='en-US',	
-    enable_word_time_offsets=True,
-    enable_automatic_punctuation= True)
+    enable_word_time_offsets=True)
 
 
  
