@@ -80,7 +80,7 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '../../Credentials/ryan_1801_eye_
 if gui_mode == 'on':
 	change_credential = messagebox.askyesno("Audio_Transcriber","Would you like to change the default Google Credential?")
 	if change_credential:
-		filename = askopenfilename(title = 'Please Select your credential File') # show an "Open" dialog box and return the path to the selected file
+		filename = filedialog.askopenfilename(title = 'Please Select your credential File') # show an "Open" dialog box and return the path to the selected file
 		os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = filename
 
 
