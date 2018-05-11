@@ -6,7 +6,7 @@
 Using the bash application:
 ```
 Place Audio_Transcriber.command in your desired folder. Place the Audio_Transcriber.py file in
-yourdesiredfolder/Scripts/Google_Transcribtion/Audio_Transcriber.py. Alternatively you can change
+yourdesiredfolder/Scripts/Google_Transcription/Audio_Transcriber.py. Alternatively you can change
 Audio_Transcriber.command by opening it as a text file and altering the directory as shown below.
 
 In [ ]:
