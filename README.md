@@ -1,5 +1,3 @@
-# Documentaiton for Audio_Transcriber.py
-
 ## First Time Use
 
 ```
