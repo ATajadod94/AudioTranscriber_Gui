@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="514aa81c-b549-45f3-8dbb-bbe551e876ea" name="Default" comment="" />
+    <list default="true" id="514aa81c-b549-45f3-8dbb-bbe551e876ea" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Audio_Transcriber.py" beforeDir="false" afterPath="$PROJECT_DIR$/Audio_Transcriber.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,15 +13,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Google_Transcribtion$Audio_Transcriber.coverage" NAME="Audio_Transcriber Coverage Results" MODIFIED="1525292876882" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Google_Transcribtion$Audio_Transcriber.coverage" NAME="Audio_Transcriber Coverage Results" MODIFIED="1526062566382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="Audio_Transcriber.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Audio_Transcriber.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="592">
-              <caret line="155" column="65" lean-forward="true" selection-start-line="155" selection-start-column="65" selection-end-line="155" selection-end-column="65" />
+            <state relative-caret-position="398">
+              <caret line="158" lean-forward="true" selection-start-line="158" selection-end-line="158" />
             </state>
           </provider>
         </entry>
@@ -45,8 +48,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1301" />
-    <option name="y" value="23" />
+    <option name="x" value="11" />
+    <option name="y" value="47" />
     <option name="width" value="1280" />
     <option name="height" value="945" />
   </component>
@@ -126,14 +129,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1301" y="23" width="1280" height="945" extended-state="0" />
+    <frame x="11" y="47" width="1280" height="945" extended-state="0" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3295063" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.3295063" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2422503" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20390625" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -141,7 +144,7 @@
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39954075" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.45464984" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -162,14 +165,103 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Audio_Transcriber.py</url>
-          <line>87</line>
-          <option name="timeStamp" value="6" />
+          <line>146</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="9" />
+      <option name="time" value="17" />
     </breakpoint-manager>
   </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>try:
+    result = operation.result(timeout=3000)
+    print(filename_base + ': Successful')
+    with open(Output_folder + 'full_Information/' + filename_base + '_detailed_transcript.txt',
+              'w') as detailed_output_file:
+        for myresult in result.results:
+            alternative = myresult.alternatives[0]
+            detailed_output_file.write('Transcript: {} \n'.format(alternative.transcript))
+            detailed_output_file.write('Confidence: {} \n'.format(alternative.confidence))
+            for word_info in alternative.words:
+                word = word_info.word
+                start_time = word_info.start_time
+                end_time = word_info.end_time
+                detailed_output_file.write('Word: {}, start_time: {}, end_time: {} \n'.format(
+                    word,
+                    start_time.seconds + start_time.nanos * 1e-9,
+                    end_time.seconds + end_time.nanos * 1e-9))
+    print('Successfully created: ' + detailed_output_file.name)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>print(filename_base + ': Successful')
+with open(Output_folder + 'full_Information/' + filename_base + '_detailed_transcript.txt', 'w') as detailed_output_file:
+    for myresult in result.results:
+        alternative = myresult.alternatives[0]
+        detailed_output_file.write('Transcript: {} \n'.format(alternative.transcript))
+        detailed_output_file.write('Confidence: {} \n'.format(alternative.confidence))
+        for word_info in alternative.words:
+            word = word_info.word
+            start_time = word_info.start_time
+            end_time = word_info.end_time
+            detailed_output_file.write('Word: {}, start_time: {}, end_time: {} \n'.format(
+                word,
+                start_time.seconds + start_time.nanos * 1e-9,
+                end_time.seconds + end_time.nanos * 1e-9))
+print( 'Successfully created: ' + detailed_output_file.name)
+with open(Output_folder + 'Transcript/' + filename_base + '_transcript.txt','w') as output_file:
+    for myresult in result.results:
+        alternative = myresult.alternatives[0]
+        output_file.write(format(alternative.transcript))
+print( 'Successfully created: ' + output_file.name)
+with open(Output_folder + 'Timetable/' + filename_base + '_timetable.csv', 'w') as csv_file:
+    csvwriter = csv.writer(csv_file, dialect='excel')
+    for myresult in result.results:
+        alternative = myresult.alternatives[0]
+        for word_info in alternative.words:
+            word = word_info.word
+            start_time = word_info.start_time.seconds + word_info.start_time.nanos * 1e-9
+            end_time = word_info.end_time.seconds + word_info.end_time.nanos * 1e-9
+            output = [word,start_time,end_time,end_time - start_time]
+            csvwriter.writerow(output)
+    print('Successfully created: ' + csv_file.name)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+    </expressions>
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>operation</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Audio_Transcriber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2550">
+          <caret line="170" selection-start-line="170" selection-end-line="187" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Audio_Transcriber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1155">
+          <caret line="77" column="94" lean-forward="true" selection-start-line="77" selection-start-column="94" selection-end-line="77" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Audio_Transcriber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2325">
+          <caret line="155" column="65" lean-forward="true" selection-start-line="155" selection-start-column="65" selection-end-line="155" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Audio_Transcriber.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2040">
@@ -178,10 +270,45 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Audio_Trasnscriber.py" />
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/google/gax/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="594" column="43" selection-start-line="594" selection-start-column="35" selection-end-line="594" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="2973" column="32" lean-forward="true" selection-start-line="2973" selection-start-column="29" selection-end-line="2973" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="1663" selection-start-line="1663" selection-end-line="1663" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/grpc/_channel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="444" column="41" lean-forward="true" selection-start-line="444" selection-start-column="41" selection-end-line="444" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Audio_Transcriber.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="155" column="65" lean-forward="true" selection-start-line="155" selection-start-column="65" selection-end-line="155" selection-end-column="65" />
+        <state relative-caret-position="398">
+          <caret line="158" lean-forward="true" selection-start-line="158" selection-end-line="158" />
         </state>
       </provider>
     </entry>
