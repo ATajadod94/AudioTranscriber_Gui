@@ -3,3 +3,4 @@ Audio_Transcriber.pdf
 Audio_Transcriber.py
 .idea/workspace.xml
 .DS_Store
+*.xml
